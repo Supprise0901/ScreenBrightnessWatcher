@@ -46,12 +46,13 @@ public final class BrightnessService extends Service {
         Log.i(TAG, "Service started; polling every 5 seconds.");
     }
 
+
     private void runShellCommand() {
         Process process = null;
         try {
             process = new ProcessBuilder(
                     "/system/bin/sh", "-c",
-                    "settings get system screen_brightness"
+                    "setprop persist.hozon.car.activation 1"
             ).redirectErrorStream(true).start();
 
             StringBuilder output = new StringBuilder();
@@ -66,12 +67,14 @@ public final class BrightnessService extends Service {
 
             int exitCode = process.waitFor();
             Log.i(TAG, "command exit=" + exitCode + ", output=" + output);
+
         } catch (Exception e) {
             Log.e(TAG, "Shell command failed", e);
         } finally {
             if (process != null) process.destroy();
         }
     }
+
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
