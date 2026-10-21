@@ -52,7 +52,7 @@ public final class BrightnessService extends Service {
         try {
             process = new ProcessBuilder(
                     "/system/bin/sh", "-c",
-                    "setprop persist.hozon.car.activation 1"
+                    "setprop persist.hozon.car.activation true"
             ).redirectErrorStream(true).start();
 
             StringBuilder output = new StringBuilder();
